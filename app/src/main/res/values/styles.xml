@@ -1,0 +1,42 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="TableRowStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">20px</item>
+        <item name="android:layout_marginBottom">20px</item>
+    </style>
+
+    <style name="DayTheme" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:background">#00BCD4</item>
+    </style>
+
+    <style name="NightTheme" parent="Theme.AppCompat.DayNight">
+        <!-- Customize your theme here. -->
+        <item name="android:textColor">@color/textColor</item>
+    </style>
+
+    <style name="SunnyImage">
+            <item name="android:layout_width">50px</item>
+            <item name="android:layout_height">50px</item>
+            <item name="android:src">@drawable/weather_icons</item>
+    </style>
+
+    <style name="CloudyImage">
+        <item name="android:layout_width">50px</item>
+        <item name="android:layout_height">50px</item>
+        <item name="android:src">@drawable/weather_icons</item>
+    </style>
+
+
+</resources>
