@@ -11,8 +11,8 @@
     <style name="TableRowStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">20px</item>
-        <item name="android:layout_marginBottom">20px</item>
+        <item name="android:layout_marginTop">3pt</item>
+        <item name="android:layout_marginBottom">3pt</item>
     </style>
 
     <style name="DayTheme" parent="Theme.AppCompat.Light">
@@ -27,14 +27,14 @@
     </style>
 
     <style name="SunnyImage">
-            <item name="android:layout_width">50px</item>
-            <item name="android:layout_height">50px</item>
+            <item name="android:layout_width">10pt</item>
+            <item name="android:layout_height">10pt</item>
             <item name="android:src">@drawable/weather_icons</item>
     </style>
 
     <style name="CloudyImage">
-        <item name="android:layout_width">50px</item>
-        <item name="android:layout_height">50px</item>
+        <item name="android:layout_width">10pt</item>
+        <item name="android:layout_height">10pt</item>
         <item name="android:src">@drawable/weather_icons</item>
     </style>
 

@@ -54,7 +54,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20px"
+                android:layout_marginHorizontal="5pt"
                 android:text="Сегодня" />
             <TextView
                 android:layout_width="wrap_content"
@@ -79,7 +79,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20px"
+                android:layout_marginHorizontal="5pt"
                 android:text="Завтра" />
             <TextView
                 android:layout_width="wrap_content"
@@ -104,7 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/dayAfterTomDayOfWeek"
-                android:layout_marginHorizontal="20px"
+                android:layout_marginHorizontal="5pt"
                 android:text="Вт" />
             <TextView
                 android:layout_width="wrap_content"
