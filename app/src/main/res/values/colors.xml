@@ -6,4 +6,11 @@
 
     <color name="textColor">#FFFFFF</color>
 
+    <color name="settingsTextColor">#000000</color>
+    <color name="settingsBackground">#ECEAEA</color>
+
+    <color name="cityTextViewColor">#FFFFFF</color>
+
+    <color name="white">#FFFFFF</color>
+
 </resources>
