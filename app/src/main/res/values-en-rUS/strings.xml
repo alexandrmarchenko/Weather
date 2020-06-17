@@ -2,5 +2,20 @@
 <resources>
     <string name="app_name">Weather</string>
     <string name="forecast_5day">5 day weather forecast</string>
+    <string name="settings">Settings</string>
+    <string name="choose_city_header">Choose city</string>
+    <string name="enter_city">Enter city</string>
+    <string name="about">About</string>
 
+    <string name="measure">Measures</string>
+    <string name="temperature">Temperature</string>
+    <string name="wind_speed">Wind speed</string>
+
+    <string-array name="wind_speed_measure">
+        <item>Beaufort Scale</item>
+        <item>Kilometers per hour</item>
+        <item>Meters per second</item>
+        <item>Miles per hour</item>
+        <item>Knots</item>
+    </string-array>
 </resources>

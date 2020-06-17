@@ -9,6 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NightTheme">
+        <activity android:name=".SettingsActivity"
+            android:theme="@style/SettingsStyle"/>
+        <activity
+            android:name=".CityManagement"
+            android:theme="@style/SettingsStyle" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,7 +21,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

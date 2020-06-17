@@ -19,25 +19,58 @@
         <!-- Customize your theme here. -->
         <item name="android:textColor">@color/textColor</item>
         <item name="android:background">#00BCD4</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
+        <item name="textAppearanceSmallPopupMenu">@style/myPopupMenuTextAppearanceSmall</item>
+        <item name="textAppearanceLargePopupMenu">@style/myPopupMenuTextAppearanceLarge</item>
     </style>
 
     <style name="NightTheme" parent="Theme.AppCompat.DayNight">
         <!-- Customize your theme here. -->
         <item name="android:textColor">@color/textColor</item>
         <item name="android:textSize">8pt</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
+        <item name="textAppearanceSmallPopupMenu">@style/myPopupMenuTextAppearanceSmall</item>
+        <item name="textAppearanceLargePopupMenu">@style/myPopupMenuTextAppearanceLarge</item>
     </style>
 
-    <style name="SunnyImage">
-            <item name="android:layout_width">10pt</item>
-            <item name="android:layout_height">10pt</item>
-            <item name="android:src">@drawable/weather_icons</item>
+    <style name="Header">
+        <item name="android:textSize">9pt</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="CloudyImage">
-        <item name="android:layout_width">10pt</item>
-        <item name="android:layout_height">10pt</item>
-        <item name="android:src">@drawable/weather_icons</item>
+    <style name="SettingsStyle" parent="Theme.AppCompat.Light">
+        <item name="android:textColor">@color/settingsTextColor</item>
+        <item name="android:background">@color/settingsBackground</item>
     </style>
 
+    <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:popupBackground">@android:color/white</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="myPopupMenuTextAppearanceSmall" parent="@android:style/TextAppearance.DeviceDefault.Widget.PopupMenu.Small">
+        <item name="android:textColor">#545656</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+    <style name="myPopupMenuTextAppearanceLarge" parent="@android:style/TextAppearance.DeviceDefault.Widget.PopupMenu.Large">
+        <item name="android:textColor">#545656</item>
+        <item name="android:textSize">25sp</item>
+    </style>
+
+    <style name="cityTextView">
+        <item name="android:background">@android:color/white</item>
+        <item name="android:layout_marginLeft">3pt</item>
+        <item name="android:layout_marginRight">3pt</item>
+    </style>
+
+    <style name="settingsSepLine">
+        <item name ="android:layout_width">match_parent</item>
+        <item name ="android:background">@color/settingsBackground</item>
+        <item name ="android:layout_marginTop">5dp</item>
+        <item name ="android:layout_marginBottom">5dp</item>
+        <item name ="android:layout_height">1sp</item>
+    </style>
 
 </resources>
