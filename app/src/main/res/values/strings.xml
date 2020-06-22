@@ -1,5 +1,34 @@
 <resources>
     <string name="app_name">Погода</string>
     <string name="forecast_5day">Прогноз погоды на 5 дней</string>
+    <string name="settings">Настройки</string>
+    <string name="choose_city_header">Выберите город</string>
+    <string name="enter_city">Введите город</string>
+    <string name="about">О приложении</string>
 
+    <string name="measure">Единицы измерения</string>
+    <string name="temperature">Температура</string>
+    <string name="wind_speed">Скорость ветра</string>
+
+    <string-array name="cities">
+        <item>Москва</item>
+        <item>Санкт-Петербург</item>
+        <item>Самара</item>
+        <item>Краснодар</item>
+        <item>Оренбург</item>
+        <item>Екатеринбург</item>
+        <item>Moscow</item>
+    </string-array>
+
+    <string-array name="temperature_measure">
+        <item>\u2103</item>
+        <item>\u2109</item>
+    </string-array>
+    <string-array name="wind_speed_measure">
+        <item>Шкала Бофорта</item>
+        <item>Километры в час</item>
+        <item>Метры в секунду</item>
+        <item>Мили в час</item>
+        <item>Узлы</item>
+    </string-array>
 </resources>
