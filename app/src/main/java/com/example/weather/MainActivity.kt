@@ -6,11 +6,10 @@ import android.os.Bundle
 import android.view.ContextThemeWrapper
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import android.widget.PopupMenu
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -21,27 +20,30 @@ class MainActivity : AppCompatActivity() {
 
     private val REQUEST_GET_DATA_TYPE = 1
 
-    private lateinit var city: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        city = findViewById<TextView>(R.id.city)
-        val cityManActivity = findViewById<Button>(R.id.cityManagement)
-        cityManActivity.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                callCityManagement()
-            }
-        })
+        setCityManagementBtnListener()
 
-        val settingsPopupMenu = findViewById<Button>(R.id.settingsPopup)
-        settingsPopupMenu.setOnClickListener(object : View.OnClickListener {
+        setSettingsPopupBtnListener()
+    }
+
+    private fun setSettingsPopupBtnListener() {
+        settingsPopup.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 showSettingsPopup(v)
             }
         })
+    }
 
+    private fun setCityManagementBtnListener() {
+        cityManagement.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                callCityManagement()
+            }
+        })
     }
 
     fun showSettingsPopup(view: View?) {

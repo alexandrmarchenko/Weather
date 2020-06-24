@@ -4,38 +4,40 @@ import android.app.Activity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
-import android.widget.Button
-import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_city_management.*
 
 
 class CityManagement : AppCompatActivity() {
 
     private lateinit var cities: Array<String>
-    private lateinit var cityList: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_city_management)
 
         cities = resources.getStringArray(R.array.cities)
-        cityList = findViewById<LinearLayout>(R.id.cityList)
 
         this.fillCityList(cities);
 
+        setBackBtnListener()
 
-        val back = findViewById<Button>(R.id.back)
-        back.setOnClickListener(View.OnClickListener {
+        setEnterCityTextEditListener()
+
+    }
+
+    private fun setBackBtnListener() {
+        back.setOnClickListener {
             setResult(Activity.RESULT_CANCELED)
             finish()
-        })
+        }
+    }
 
-        val cityEditText = findViewById<EditText>(R.id.enter_city)
-        cityEditText.addTextChangedListener(object : TextWatcher {
+    private fun setEnterCityTextEditListener() {
+        enter_city.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 val cList = cities.filter { city ->
                     city.toUpperCase().contains(s.toString().toUpperCase())
@@ -49,7 +51,6 @@ class CityManagement : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
         })
-
     }
 
     private fun fillCityList(cities: Array<String>) {
@@ -61,12 +62,12 @@ class CityManagement : AppCompatActivity() {
             layoutParams.setMargins(0, 5, 0, 5)
             cityTextView.layoutParams = layoutParams
 
-            cityTextView.setOnClickListener(View.OnClickListener {
+            cityTextView.setOnClickListener {
                 val data = intent
                 data.putExtra(MainActivity.CITY_KEY, city)
                 setResult(Activity.RESULT_OK, data)
                 finish()
-            })
+            }
 
             cityTextView.text = city
             cityList.addView(cityTextView)
