@@ -11,6 +11,8 @@
     <string name="temperature">Temperature</string>
     <string name="wind_speed">Wind speed</string>
 
+    <string name="details">Details</string>
+
     <string-array name="wind_speed_measure">
         <item>Beaufort Scale</item>
         <item>Kilometers per hour</item>

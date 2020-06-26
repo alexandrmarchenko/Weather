@@ -10,6 +10,8 @@
     <string name="temperature">Температура</string>
     <string name="wind_speed">Скорость ветра</string>
 
+    <string name="details">Подробнее</string>
+
     <string-array name="cities">
         <item>Москва</item>
         <item>Санкт-Петербург</item>

@@ -2,6 +2,7 @@ package com.example.weather
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.ContextThemeWrapper
 import android.view.MenuItem
@@ -28,6 +29,19 @@ class MainActivity : AppCompatActivity() {
         setCityManagementBtnListener()
 
         setSettingsPopupBtnListener()
+
+        setDetailBtnListener()
+    }
+
+    private fun setDetailBtnListener() {
+        details.setOnClickListener {
+            val browser = Uri.parse("https://www.accuweather.com")
+            intent = Intent(Intent.ACTION_VIEW, browser)
+            val components = intent.resolveActivity(packageManager)
+            if (components != null) {
+                startActivity(intent)
+            }
+        }
     }
 
     private fun setSettingsPopupBtnListener() {
