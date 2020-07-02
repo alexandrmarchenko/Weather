@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:background="@color/cityTextViewColor">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_top_begin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/city_name"
+        app:layout_constraintTop_toTopOf="@+id/guideline_top_begin"
+        app:layout_constraintLeft_toLeftOf="parent"
+
+
+        style="@style/user_city_list_item_style"
+        android:textSize="@dimen/user_city_list_item_city_text_size"
+        android:layout_marginLeft="15dp"
+        tools:text="City_Name"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/temperature"
+        app:layout_constraintTop_toTopOf="@+id/guideline_top_begin"
+        app:layout_constraintRight_toRightOf="@+id/temperature_measure"
+        tools:text="21"
+
+        style="@style/user_city_list_item_style"
+        android:layout_marginRight="15dp"
+        android:textSize="@dimen/user_city_list_item_temp_text_size"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/temperature_measure"
+        app:layout_constraintTop_toTopOf="@+id/guideline_top_begin"
+        app:layout_constraintRight_toRightOf="parent"
+
+        style="@style/user_city_list_item_style"
+        android:layout_marginRight="15dp"
+        android:textSize="@dimen/user_city_list_item_measure_text_size"
+        tools:text="\u2103"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/city_weather_image"
+        app:layout_constraintTop_toTopOf="@+id/guideline_top_begin"
+        app:layout_constraintRight_toLeftOf="@id/temperature"/>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="city_name,temperature,city_weather_image"/>
+
+    <View
+        style="@style/settingsSepLine"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/barrier"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/sep_line"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/humidity"
+        app:layout_constraintTop_toBottomOf="@id/sep_line"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="@string/humidity"
+
+        style="@style/user_city_list_item_param_style"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/humidity_val"
+        app:layout_constraintTop_toBottomOf="@id/sep_line"
+        app:layout_constraintLeft_toRightOf="@id/humidity"
+
+        style="@style/user_city_list_item_param_style"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        tools:text="56%"/>
+
+    <View
+        android:id="@+id/sep_line_vert_1"
+        style="@style/settingsSepLineVertical"
+        android:layout_width="1dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toRightOf="@+id/humidity_val"
+        app:layout_constraintRight_toLeftOf="@+id/wind_direction"
+        app:layout_constraintTop_toBottomOf="@id/sep_line" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/wind_direction"
+        app:layout_constraintTop_toBottomOf="@id/sep_line"
+        app:layout_constraintLeft_toRightOf="@id/sep_line_vert_1"
+
+        style="@style/user_city_list_item_param_style"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        tools:text="C-В"/>
+
+    <View
+        android:id="@+id/sep_line_vert_2"
+        style="@style/settingsSepLineVertical"
+        android:layout_width="1dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toRightOf="@+id/wind_direction"
+        app:layout_constraintRight_toLeftOf="@+id/wind_speed"
+        app:layout_constraintTop_toBottomOf="@id/sep_line" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/wind_speed"
+        app:layout_constraintTop_toBottomOf="@id/sep_line"
+        app:layout_constraintLeft_toRightOf="@id/sep_line_vert_2"
+
+        style="@style/user_city_list_item_param_style"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        tools:text="13"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/wind_speed_measure"
+        app:layout_constraintTop_toBottomOf="@id/sep_line"
+        app:layout_constraintLeft_toRightOf="@id/wind_speed"
+
+        style="@style/user_city_list_item_param_style"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        tools:text="км/ч"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/day_night_temperature"
+        app:layout_constraintTop_toBottomOf="@id/sep_line"
+        app:layout_constraintRight_toLeftOf="@id/day_night_temperature_measure"
+
+        style="@style/user_city_list_item_param_style"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        tools:text="22/15"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/day_night_temperature_measure"
+        app:layout_constraintTop_toBottomOf="@id/sep_line"
+        app:layout_constraintRight_toRightOf="parent"
+
+        style="@style/user_city_list_item_param_style"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        tools:text="\u2103"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/day_night_temperature_measure"/>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

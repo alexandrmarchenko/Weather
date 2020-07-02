@@ -1,111 +1,71 @@
 package com.example.weather
 
-import android.app.Activity
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.view.ContextThemeWrapper
-import android.view.MenuItem
-import android.view.View
-import android.widget.PopupMenu
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
 
     companion object {
-        const val CITY_KEY = "CITY"
-    }
+        var citiesData: ArrayList<WeatherData> = ArrayList()
+            set(value) {
+                citiesData.clear()
+                field = value
+            }
 
-    private val REQUEST_GET_DATA_TYPE = 1
+        fun addCityData(city: String) {
+            for (item in citiesData) {
+                if (item.city == city)
+                    return
+            }
+            addCity(city)
+        }
+
+        private fun addCity(vararg cities: String) {
+            for (city in cities) {
+                var curTemp = 17
+                var humidity = 69
+                var winDir = "С-В"
+                var windSpeed = 13.0
+                var dayTemp = 17
+                var nightTemp = 12
+                citiesData.add(
+                    WeatherData(
+                        city,
+                        curTemp,
+                        humidity,
+                        winDir,
+                        windSpeed,
+                        dayTemp,
+                        nightTemp
+                    )
+                )
+            }
+        }
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setCityManagementBtnListener()
 
-        setSettingsPopupBtnListener()
+        if (savedInstanceState == null) {
 
-        setDetailBtnListener()
-    }
+            getCityWeatherForecast()
 
-    private fun setDetailBtnListener() {
-        details.setOnClickListener {
-            val browser = Uri.parse("https://www.accuweather.com")
-            intent = Intent(Intent.ACTION_VIEW, browser)
-            val components = intent.resolveActivity(packageManager)
-            if (components != null) {
-                startActivity(intent)
-            }
+            var mainFragment = MainFragment.create(citiesData[0])
+
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fragment_container, mainFragment)
+                .commit()
         }
+
     }
 
-    private fun setSettingsPopupBtnListener() {
-        settingsPopup.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                showSettingsPopup(v)
-            }
-        })
-    }
-
-    private fun setCityManagementBtnListener() {
-        cityManagement.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                callCityManagement()
-            }
-        })
-    }
-
-    fun showSettingsPopup(view: View?) {
-        val wrapper = ContextThemeWrapper(this, R.style.PopupMenu)
-        val popupMenu = PopupMenu(wrapper, view)
-        popupMenu.inflate(R.menu.popup_menu)
-
-        popupMenu.setOnMenuItemClickListener(object : MenuItem.OnMenuItemClickListener,
-            PopupMenu.OnMenuItemClickListener {
-            override fun onMenuItemClick(item: MenuItem?): Boolean {
-                when (item?.itemId) {
-                    R.id.settings -> {
-                        callSettingsActivity()
-                        return true
-                    }
-                    R.id.about -> {
-                        Toast.makeText(baseContext, item.title, Toast.LENGTH_SHORT).show()
-                        return true
-                    }
-                    else -> {
-                        return true
-                    }
-                }
-            }
-
-        })
-
-        popupMenu.show()
-    }
-
-    private fun callSettingsActivity() {
-        val intent = Intent(this, SettingsActivity::class.java)
-        startActivity(intent)
-    }
-
-    private fun callCityManagement() {
-        val intent = Intent(this, CityManagement::class.java)
-        startActivityForResult(intent, REQUEST_GET_DATA_TYPE)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_GET_DATA_TYPE) {
-            if (resultCode == Activity.RESULT_OK) {
-                city.text = data?.extras?.getString(CITY_KEY)
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
-        }
+    private fun getCityWeatherForecast() {
+        var cities = resources.getStringArray(R.array.user_city_list)
+        addCity(*cities)
     }
 
 }
