@@ -6,12 +6,15 @@
     <string name="choose_city_header">Choose city</string>
     <string name="enter_city">Enter city</string>
     <string name="about">About</string>
+    <string name="city_management">City management</string>
 
     <string name="measure">Measures</string>
     <string name="temperature">Temperature</string>
     <string name="wind_speed">Wind speed</string>
 
     <string name="details">Details</string>
+
+    <string name="humidity">Humidity</string>
 
     <string-array name="wind_speed_measure">
         <item>Beaufort Scale</item>
