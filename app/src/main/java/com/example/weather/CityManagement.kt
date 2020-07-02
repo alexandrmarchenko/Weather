@@ -64,7 +64,7 @@ class CityManagement : AppCompatActivity() {
 
             cityTextView.setOnClickListener {
                 val data = intent
-                data.putExtra(MainActivity.CITY_KEY, city)
+                data.putExtra(MainFragment.CITY_KEY, city)
                 setResult(Activity.RESULT_OK, data)
                 finish()
             }
