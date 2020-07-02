@@ -44,7 +44,9 @@ class UserCityListFragment : Fragment() {
     private fun fillCityList() {
 
 
-        var userCityListAdapter = UserCityListAdapter()
+        val listener = { position: Int -> showCityWeatherForecast(position)}
+
+        var userCityListAdapter = UserCityListAdapter(listener)
 
         user_city_list.layoutManager = LinearLayoutManager(context)
         user_city_list.adapter = userCityListAdapter
@@ -52,13 +54,6 @@ class UserCityListFragment : Fragment() {
 
 
         userCityListAdapter.dataList = MainActivity.citiesData
-
-        userCityListAdapter.setOnClickListener(object : UserCityListAdapter.OnClickListener {
-            override fun onClick(position: Int) {
-                showCityWeatherForecast(position)
-            }
-        })
-
 
     }
 

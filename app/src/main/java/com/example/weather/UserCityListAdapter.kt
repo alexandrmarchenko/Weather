@@ -6,12 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.user_city_list_item.view.*
 
-class UserCityListAdapter :
+class UserCityListAdapter(private val listener: (Int) -> Unit) :
     RecyclerView.Adapter<UserCityListAdapter.UserCityListViewHolder>() {
-
-    interface OnClickListener {
-        fun onClick(position: Int);
-    }
 
     var dataList: ArrayList<WeatherData> = ArrayList()
         set(value) {
@@ -19,12 +15,6 @@ class UserCityListAdapter :
             field.addAll(value)
             notifyDataSetChanged()
         }
-
-    lateinit var listener: OnClickListener
-
-    fun setOnClickListener(listener: OnClickListener) {
-        this.listener = listener
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserCityListViewHolder {
         return UserCityListViewHolder(
@@ -37,12 +27,12 @@ class UserCityListAdapter :
     }
 
     override fun onBindViewHolder(holder: UserCityListViewHolder, position: Int) {
-        holder.bind(dataList[position], listener)
+        holder.bind(dataList[position], this.listener)
     }
 
     class UserCityListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(item: WeatherData, listener: OnClickListener) {
+        fun bind(item: WeatherData, listener: (Int) -> Unit) {
             itemView.city_name.text = item.city
             itemView.temperature.text = item.curTemp.toString()
             itemView.humidity_val.text = item.humidity.toString()
@@ -50,7 +40,7 @@ class UserCityListAdapter :
             itemView.wind_speed.text = item.windSpeed.toString()
             itemView.day_night_temperature.text = "${item.dayTemp}/${item.nightTemp}"
 
-            itemView.setOnClickListener(View.OnClickListener { listener.onClick(adapterPosition) })
+            itemView.setOnClickListener{ listener(adapterPosition) }
         }
     }
 
