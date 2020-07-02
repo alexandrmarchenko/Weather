@@ -5,12 +5,15 @@
     <string name="choose_city_header">Выберите город</string>
     <string name="enter_city">Введите город</string>
     <string name="about">О приложении</string>
+    <string name="city_management">Управление городами</string>
 
     <string name="measure">Единицы измерения</string>
     <string name="temperature">Температура</string>
     <string name="wind_speed">Скорость ветра</string>
 
     <string name="details">Подробнее</string>
+
+    <string name="humidity">Влажность</string>
 
     <string-array name="cities">
         <item>Москва</item>
@@ -33,4 +36,11 @@
         <item>Мили в час</item>
         <item>Узлы</item>
     </string-array>
+
+
+    <string-array name="user_city_list">
+        <item>Москва</item>
+        <item>Санкт-Петербург</item>
+    </string-array>
+
 </resources>

@@ -73,4 +73,30 @@
         <item name ="android:layout_height">1sp</item>
     </style>
 
+    <style name="settingsSepLineVertical">
+        <item name ="android:layout_width">1sp</item>
+        <item name ="android:background">@color/settingsBackground</item>
+        <item name ="android:layout_marginLeft">5dp</item>
+        <item name ="android:layout_marginRight">5dp</item>
+        <item name ="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="add_city_list_item_style">
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:background">@color/cityTextViewColor</item>
+        <item name="android:textColor">@color/settingsTextColor</item>
+    </style>
+
+    <style name="user_city_list_item_style">
+        <item name="android:background">@color/cityTextViewColor</item>
+        <item name="android:textColor">@color/settingsTextColor</item>
+    </style>
+
+    <style name="user_city_list_item_param_style">
+        <item name="android:background">@color/cityTextViewColor</item>
+        <item name="android:textColor">@color/settingsTextColor</item>
+        <item name="android:textSize">@dimen/user_city_list_item_param_text_size</item>
+    </style>
+
 </resources>
