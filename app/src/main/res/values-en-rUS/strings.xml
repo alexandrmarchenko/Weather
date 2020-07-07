@@ -2,15 +2,17 @@
 <resources>
     <string name="app_name">Weather</string>
     <string name="forecast_5day">5 day weather forecast</string>
-    <string name="settings">Settings</string>
     <string name="choose_city_header">Choose city</string>
     <string name="enter_city">Enter city</string>
     <string name="about">About</string>
     <string name="city_management">City management</string>
 
+    <string name="settings">Settings</string>
     <string name="measure">Measures</string>
     <string name="temperature">Temperature</string>
     <string name="wind_speed">Wind speed</string>
+    <string name="temperature_snackbar">Temperature measure changed</string>
+    <string name="windspeed_snackbar">Wind speed measure changed</string>
 
     <string name="details">Details</string>
 
