@@ -4,4 +4,7 @@
     <dimen name="user_city_list_item_measure_text_size">15sp</dimen>
     <dimen name="user_city_list_item_temp_text_size">25sp</dimen>
     <dimen name="user_city_list_item_city_text_size">20sp</dimen>
+
+    <dimen name="search_city_list_item_city_text_size">20sp</dimen>
+    <dimen name="search_city_list_item_country_text_size">17sp</dimen>
 </resources>

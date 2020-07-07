@@ -13,4 +13,6 @@
 
     <color name="white">#FFFFFF</color>
 
+    <color name="cityItemListSecondColor">#6C6B6B</color>
+
 </resources>
