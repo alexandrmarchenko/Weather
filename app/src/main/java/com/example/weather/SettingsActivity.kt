@@ -1,9 +1,9 @@
 package com.example.weather
 
-import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_settings.*
 
 
@@ -23,39 +23,49 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun setWindSpeedListener() {
         windSpeed.setOnClickListener {
-            val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-            builder.setTitle(resources.getString(R.string.wind_speed))
-                .setItems(R.array.wind_speed_measure, object : DialogInterface.OnClickListener {
-                    override fun onClick(dialog: DialogInterface?, which: Int) {
-                        val tempArray = resources.getStringArray(R.array.wind_speed_measure)
-                        windSpeedVal.text = tempArray[which]
+            val windSpeedArray = resources.getStringArray(R.array.wind_speed_measure)
+            val checkedItem = windSpeedArray.indexOf(windSpeedVal.text)
+            val builder = MaterialAlertDialogBuilder(this)
+                .setTitle(resources.getString(R.string.wind_speed))
+                .setSingleChoiceItems(
+                    R.array.wind_speed_measure,
+                    checkedItem,
+                    object : DialogInterface.OnClickListener {
+                        override fun onClick(dialog: DialogInterface?, which: Int) {
+                            windSpeedVal.text = windSpeedArray[which]
 
-                        saveWindSpeed()
-                    }
+                            saveWindSpeed()
+                            dialog?.dismiss()
+                        }
 
-                })
+                    })
             builder.show()
         }
     }
 
     private fun setTemperatureListener() {
         temperature.setOnClickListener {
-            val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-            builder.setTitle(resources.getString(R.string.temperature))
-                .setItems(R.array.temperature_measure, object : DialogInterface.OnClickListener {
-                    override fun onClick(dialog: DialogInterface?, which: Int) {
-                        val tempArray = resources.getStringArray(R.array.temperature_measure)
-                        temperatureVal.text = tempArray[which]
+            val tempArray = resources.getStringArray(R.array.temperature_measure)
+            val checkedItem = tempArray.indexOf(temperatureVal.text)
+            val builder = MaterialAlertDialogBuilder(this)
+                .setTitle(resources.getString(R.string.temperature))
+                .setSingleChoiceItems(
+                    R.array.temperature_measure,
+                    checkedItem,
+                    object : DialogInterface.OnClickListener {
+                        override fun onClick(dialog: DialogInterface?, which: Int) {
+                            temperatureVal.text = tempArray[which]
 
-                        saveTemperature()
-                    }
-                })
+                            saveTemperature()
+                            dialog?.dismiss()
+                        }
+                    })
             builder.show()
         }
     }
 
     private fun setBackBtnListener() {
-        back.setOnClickListener{ finish() }
+        topAppBar.setNavigationOnClickListener { finish() }
     }
 
     override fun onResume() {

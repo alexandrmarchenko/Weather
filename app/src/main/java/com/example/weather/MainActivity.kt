@@ -2,6 +2,8 @@ package com.example.weather
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
@@ -48,7 +50,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        setThemeDependTime()
 
         if (savedInstanceState == null) {
 
@@ -60,12 +62,26 @@ class MainActivity : AppCompatActivity() {
                 .add(R.id.fragment_container, mainFragment)
                 .commit()
         }
-
     }
 
     private fun getCityWeatherForecast() {
         var cities = resources.getStringArray(R.array.user_city_list)
         addCity(*cities)
+    }
+
+    private fun setThemeDependTime() {
+        val hour = Calendar.getInstance().time.hours
+        when (hour) {
+            in 0..6, in 22..24 -> {
+                this.setTheme(R.style.NightTheme)
+                window.setBackgroundDrawableResource(R.drawable.night_background)
+            }
+            else -> {
+                setTheme(R.style.DayTheme)
+                window.setBackgroundDrawableResource(R.drawable.day_background)
+            }
+        }
+
     }
 
 }
