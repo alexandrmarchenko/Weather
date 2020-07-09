@@ -11,16 +11,16 @@
     <style name="TableRowStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">3pt</item>
-        <item name="android:layout_marginBottom">3pt</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:layout_marginBottom">3dp</item>
     </style>
 
     <style name="DayTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="android:textColor">@color/textColor</item>
-        <item name="android:windowBackground">@drawable/day_background</item>
+        <item name="android:background">@color/colorDayTheme</item>
         <item name="android:popupMenuStyle">@style/PopupMenu</item>
-        <item name="windowNoTitle">true</item>
+        <item name="android:textSize">18sp</item>
         <item name="textAppearanceSmallPopupMenu">@style/myPopupMenuTextAppearanceSmall</item>
         <item name="textAppearanceLargePopupMenu">@style/myPopupMenuTextAppearanceLarge</item>
     </style>
@@ -28,8 +28,8 @@
     <style name="NightTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="android:textColor">@color/textColor</item>
-        <item name="android:windowBackground">@drawable/night_background</item>
-        <item name="android:textSize">8pt</item>
+        <item name="android:background">@color/colorNightTheme</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:popupMenuStyle">@style/PopupMenu</item>
         <item name="textAppearanceSmallPopupMenu">@style/myPopupMenuTextAppearanceSmall</item>
         <item name="textAppearanceLargePopupMenu">@style/myPopupMenuTextAppearanceLarge</item>
@@ -47,7 +47,7 @@
     </style>
 
     <style name="Header">
-        <item name="android:textSize">9pt</item>
+        <item name="android:textSize">25sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -58,7 +58,7 @@
 
     <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:popupBackground">@android:color/white</item>
+        <item name="android:background">@android:color/white</item>
         <item name="android:textColor">#000000</item>
         <item name="android:textSize">15sp</item>
     </style>
@@ -74,8 +74,8 @@
 
     <style name="cityTextView">
         <item name="android:background">@android:color/white</item>
-        <item name="android:layout_marginLeft">3pt</item>
-        <item name="android:layout_marginRight">3pt</item>
+        <item name="android:layout_marginLeft">3dp</item>
+        <item name="android:layout_marginRight">3dp</item>
     </style>
 
     <style name="settingsSepLine">
