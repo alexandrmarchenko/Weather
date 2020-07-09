@@ -8,7 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import kotlinx.android.synthetic.main.add_city_list_item.view.*
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_add_city.*
 
 /**
@@ -17,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_add_city.*
 class AddCityFragment : Fragment() {
 
     private lateinit var cities: Array<String>
+    private lateinit var searchCityListAdapter: SearchCityListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,26 +33,61 @@ class AddCityFragment : Fragment() {
 
         cities = resources.getStringArray(R.array.cities)
 
-        this.fillCityList(cities);
-
         setBackBtnListener()
 
         setEnterCityTextEditListener()
+
+        fillCityList()
     }
 
+    private fun fillCityList() {
+
+
+        val listener = { city: String -> addCity(city) }
+
+        searchCityListAdapter = SearchCityListAdapter(listener)
+
+        cityList.layoutManager = LinearLayoutManager(context)
+        cityList.adapter = searchCityListAdapter
+
+        val itemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL);
+        itemDecoration.setDrawable(resources.getDrawable(R.drawable.separator));
+        cityList.addItemDecoration(itemDecoration);
+
+
+
+        searchCityListAdapter.dataList = getCityList(cities)
+
+    }
+
+    private fun addCity(city: String) {
+
+        MainActivity.addCityData(city)
+
+        var userCityListFragment = UserCityListFragment()
+
+        var ft = fragmentManager?.beginTransaction()
+        ft?.replace(R.id.fragment_container, userCityListFragment)
+        ft?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+
+        ft?.commit()
+    }
+
+
     private fun setBackBtnListener() {
-        back.setOnClickListener {
+        topAppBar.setNavigationOnClickListener {
             fragmentManager?.popBackStack()
         }
     }
 
     private fun setEnterCityTextEditListener() {
+
         enter_city.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 val cList = cities.filter { city ->
                     city.toUpperCase().contains(s.toString().toUpperCase())
                 }
-                fillCityList(cList.toTypedArray());
+                searchCityListAdapter.dataList = getCityList(cList.toTypedArray())
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -61,28 +98,16 @@ class AddCityFragment : Fragment() {
         })
     }
 
-    private fun fillCityList(cities: Array<String>) {
+    private fun getCityList(cities: Array<String>): ArrayList<CityData> {
 
-
-        cityList.removeAllViews()
+        val cityList = ArrayList<CityData>()
+        val country = "Россия"
+        val adminArea = "adminArea"
         for (city in cities) {
-            val cityTextView =
-                LayoutInflater.from(context).inflate(R.layout.add_city_list_item, null)
 
-            cityTextView.setOnClickListener {
-                MainActivity.addCityData(city)
-
-                var userCityListFragment = UserCityListFragment()
-
-                var ft = fragmentManager?.beginTransaction()
-                ft?.replace(R.id.fragment_container, userCityListFragment)
-                ft?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-
-                ft?.commit()
-            }
-
-            cityTextView.city.text = city
-            cityList.addView(cityTextView)
+            cityList.add(CityData(city, country, adminArea))
         }
+
+        return cityList
     }
 }

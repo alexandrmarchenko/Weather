@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -15,22 +15,35 @@
         <item name="android:layout_marginBottom">3pt</item>
     </style>
 
-    <style name="DayTheme" parent="Theme.AppCompat.Light">
+    <style name="DayTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="android:textColor">@color/textColor</item>
-        <item name="android:background">#00BCD4</item>
+        <item name="android:windowBackground">@drawable/day_background</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
+        <item name="windowNoTitle">true</item>
+        <item name="textAppearanceSmallPopupMenu">@style/myPopupMenuTextAppearanceSmall</item>
+        <item name="textAppearanceLargePopupMenu">@style/myPopupMenuTextAppearanceLarge</item>
+    </style>
+
+    <style name="NightTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:windowBackground">@drawable/night_background</item>
+        <item name="android:textSize">8pt</item>
         <item name="android:popupMenuStyle">@style/PopupMenu</item>
         <item name="textAppearanceSmallPopupMenu">@style/myPopupMenuTextAppearanceSmall</item>
         <item name="textAppearanceLargePopupMenu">@style/myPopupMenuTextAppearanceLarge</item>
     </style>
 
-    <style name="NightTheme" parent="Theme.AppCompat.DayNight">
-        <!-- Customize your theme here. -->
-        <item name="android:textColor">@color/textColor</item>
-        <item name="android:textSize">8pt</item>
-        <item name="android:popupMenuStyle">@style/PopupMenu</item>
-        <item name="textAppearanceSmallPopupMenu">@style/myPopupMenuTextAppearanceSmall</item>
-        <item name="textAppearanceLargePopupMenu">@style/myPopupMenuTextAppearanceLarge</item>
+    <style name="ToolbarTheme" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
+        <item name="background">@null</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+    </style>
+
+    <style name="SettingsToolbarTheme" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
+        <item name="background">@null</item>
+        <item name="colorOnPrimary">@color/settingsTextColor</item>
     </style>
 
     <style name="Header">
@@ -38,7 +51,7 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="SettingsStyle" parent="Theme.AppCompat.Light">
+    <style name="SettingsStyle" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:textColor">@color/settingsTextColor</item>
         <item name="android:background">@color/settingsBackground</item>
     </style>
@@ -95,8 +108,20 @@
 
     <style name="user_city_list_item_param_style">
         <item name="android:background">@color/cityTextViewColor</item>
-        <item name="android:textColor">@color/settingsTextColor</item>
+        <item name="android:textColor">@color/cityItemListSecondColor</item>
         <item name="android:textSize">@dimen/user_city_list_item_param_text_size</item>
+    </style>
+
+    <style name="search_city_list_item_style">
+        <item name="android:background">@color/cityTextViewColor</item>
+        <item name="android:textColor">@color/settingsTextColor</item>
+        <item name="android:textSize">@dimen/search_city_list_item_city_text_size</item>
+    </style>
+
+    <style name="search_city_list_item_param_style">
+        <item name="android:background">@color/cityTextViewColor</item>
+        <item name="android:textColor">@color/cityItemListSecondColor</item>
+        <item name="android:textSize">@dimen/search_city_list_item_country_text_size</item>
     </style>
 
 </resources>

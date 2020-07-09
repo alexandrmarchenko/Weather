@@ -3,8 +3,10 @@ package com.example.weather
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.*
-import android.widget.PopupMenu
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -80,48 +82,28 @@ class MainFragment : Fragment() {
     }
 
     private fun setSettingsPopupBtnListener() {
-        settingsPopup.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                showSettingsPopup(v)
+
+        topAppBar.setOnMenuItemClickListener { item: MenuItem? ->
+            when (item?.itemId) {
+                R.id.settings -> {
+                    callSettingsActivity()
+                    true
+                }
+                R.id.about -> {
+                    Toast.makeText(context, item.title, Toast.LENGTH_SHORT).show()
+                    true
+                }
+                else -> {
+                    false
+                }
             }
-        })
+        }
 
         temperatureTable.todayTemp
     }
 
     private fun setCityManagementBtnListener() {
-        cityManagement?.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                callCityManagement()
-            }
-        })
-    }
-
-    fun showSettingsPopup(view: View?) {
-        val wrapper = ContextThemeWrapper(context, R.style.PopupMenu)
-        val popupMenu = PopupMenu(wrapper, view)
-        popupMenu.inflate(R.menu.popup_menu)
-
-        popupMenu.setOnMenuItemClickListener(object : MenuItem.OnMenuItemClickListener,
-            PopupMenu.OnMenuItemClickListener {
-            override fun onMenuItemClick(item: MenuItem?): Boolean {
-                when (item?.itemId) {
-                    R.id.settings -> {
-                        callSettingsActivity()
-                        return true
-                    }
-                    R.id.about -> {
-                        Toast.makeText(context, item.title, Toast.LENGTH_SHORT).show()
-                        return true
-                    }
-                    else -> {
-                        return true
-                    }
-                }
-            }
-        })
-
-        popupMenu.show()
+        topAppBar?.setNavigationOnClickListener { callCityManagement() }
     }
 
     private fun callSettingsActivity() {

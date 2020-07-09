@@ -84,7 +84,7 @@ class UserCityListFragment : Fragment() {
     }
 
     private fun setBackBtnListener() {
-        back.setOnClickListener {
+        topAppBar.setNavigationOnClickListener {
             fragmentManager?.popBackStack()
         }
     }
