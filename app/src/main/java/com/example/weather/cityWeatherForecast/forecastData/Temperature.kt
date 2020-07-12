@@ -3,8 +3,8 @@ package com.example.weather.cityWeatherForecast.forecastData
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-data class ForecastData (
+data class Temperature (
 
-	@SerializedName("Headline") val headline : Headline,
-	@SerializedName("DailyForecasts") val dailyForecasts : List<DailyForecasts>
+	@SerializedName("Minimum") val minimum : Minimum,
+	@SerializedName("Maximum") val maximum : Maximum
 ): Serializable
