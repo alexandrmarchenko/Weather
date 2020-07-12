@@ -96,7 +96,18 @@
         style="@style/user_city_list_item_param_style"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="5dp"
-        tools:text="56%"/>
+        tools:text="56"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/humidity_measure"
+        android:text="%"
+        app:layout_constraintTop_toBottomOf="@id/sep_line"
+        app:layout_constraintLeft_toRightOf="@+id/humidity_val"
+
+        style="@style/user_city_list_item_param_style"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="2dp"/>
 
     <View
         android:id="@+id/sep_line_vert_1"
@@ -104,7 +115,7 @@
         android:layout_width="1dp"
         android:layout_height="15dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintLeft_toRightOf="@+id/humidity_val"
+        app:layout_constraintLeft_toRightOf="@+id/humidity_measure"
         app:layout_constraintRight_toLeftOf="@+id/wind_direction"
         app:layout_constraintTop_toBottomOf="@id/sep_line" />
 
