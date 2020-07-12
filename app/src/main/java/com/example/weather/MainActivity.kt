@@ -49,8 +49,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         setThemeDependTime()
+        setContentView(R.layout.activity_main)
 
         if (savedInstanceState == null) {
 
@@ -74,11 +74,9 @@ class MainActivity : AppCompatActivity() {
         when (hour) {
             in 0..6, in 22..24 -> {
                 this.setTheme(R.style.NightTheme)
-                window.setBackgroundDrawableResource(R.drawable.night_background)
             }
             else -> {
                 setTheme(R.style.DayTheme)
-                window.setBackgroundDrawableResource(R.drawable.day_background)
             }
         }
 
