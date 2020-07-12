@@ -44,7 +44,7 @@ class UserCityListFragment : Fragment() {
     private fun fillCityList() {
 
 
-        val listener = { position: Int -> showCityWeatherForecast(position)}
+        val listener = { position: Int -> showCityWeatherForecast(position) }
 
         var userCityListAdapter = UserCityListAdapter(listener)
 
@@ -52,8 +52,31 @@ class UserCityListFragment : Fragment() {
         user_city_list.adapter = userCityListAdapter
         user_city_list.addItemDecoration(VerticalSpaceItemDecoration(VERTICAL_ITEM_SPACE))
 
+        val itemList = ArrayList<UserCityListItem>()
 
-        userCityListAdapter.dataList = MainActivity.citiesData
+        for (item in WeatherData.instance.items) {
+            val city = item.city?.localizedName
+            val curTemp = item.currentConditions?.temperature?.metric?.value
+            val humidity = item.currentConditions?.relativeHumidity
+            val windDir = item.currentConditions?.wind?.direction?.localized
+            val windSpeed = item.currentConditions?.wind?.speed?.metric?.value
+            val dayTemp = item.weatherForecast?.dailyForecasts?.get(0)?.temperature?.maximum?.value
+            val nightTemp =
+                item.weatherForecast?.dailyForecasts?.get(0)?.temperature?.minimum?.value
+            itemList.add(
+                UserCityListItem(
+                    city,
+                    curTemp,
+                    humidity,
+                    windDir,
+                    windSpeed,
+                    dayTemp,
+                    nightTemp
+                )
+            )
+        }
+
+        userCityListAdapter.dataList = itemList
 
     }
 
@@ -65,7 +88,8 @@ class UserCityListFragment : Fragment() {
             parent: RecyclerView,
             state: RecyclerView.State
         ) {
-            if (parent.getChildAdapterPosition(view) != (parent.getAdapter()?.getItemCount() ?: 0) - 1
+            if (parent.getChildAdapterPosition(view) != (parent.getAdapter()?.getItemCount()
+                    ?: 0) - 1
             ) {
                 outRect.bottom = verticalSpaceHeight;
             }
@@ -75,7 +99,7 @@ class UserCityListFragment : Fragment() {
 
     private fun showCityWeatherForecast(position: Int) {
 
-        var mainFragment = MainFragment.create(MainActivity.citiesData[position])
+        var mainFragment = MainFragment.create(WeatherData.instance.get(position))
 
         var ft = fragmentManager?.beginTransaction()
         ft?.replace(R.id.fragment_container, mainFragment)

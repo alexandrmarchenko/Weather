@@ -1,56 +1,25 @@
 package com.example.weather
 
+import com.example.weather.cityWeatherForecast.CityWeatherForecastData
 import java.io.Serializable
+import java.util.*
 
-class WeatherData(
-    city: String,
-    curTemp: Int,
-    humidity: Int,
-    windDir: String,
-    windSpeed: Double,
-    dayTemp: Int,
-    nightTemp: Int
-) : Serializable {
+class WeatherData : Serializable {
 
-    var curTemp: Int
-
-    init {
-        this.curTemp = curTemp
+    companion object {
+        val instance = WeatherData()
     }
 
-    var city: String
+    val items: ArrayList<CityWeatherForecastData> = ArrayList()
+        get() = field
 
-    init {
-        this.city = city
+
+    fun get(index: Int): CityWeatherForecastData {
+        return items[index]
     }
 
-    var humidity: Int
-
-    init {
-        this.humidity = humidity
+    fun add(item: CityWeatherForecastData) {
+        items.add(item)
     }
 
-    var windDir: String
-
-    init {
-        this.windDir = windDir
-    }
-
-    var windSpeed: Double
-
-    init {
-        this.windSpeed = windSpeed
-    }
-
-    var dayTemp: Int
-
-    init {
-        this.dayTemp = dayTemp
-    }
-
-    var nightTemp: Int
-
-    init {
-        this.nightTemp = nightTemp
-    }
 }

@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.user_city_list_item.view.*
 class UserCityListAdapter(private val listener: (Int) -> Unit) :
     RecyclerView.Adapter<UserCityListAdapter.UserCityListViewHolder>() {
 
-    var dataList: ArrayList<WeatherData> = ArrayList()
+    var dataList: ArrayList<UserCityListItem> = ArrayList()
         set(value) {
             field.clear()
             field.addAll(value)
@@ -32,15 +32,18 @@ class UserCityListAdapter(private val listener: (Int) -> Unit) :
 
     class UserCityListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(item: WeatherData, listener: (Int) -> Unit) {
+        fun bind(item: UserCityListItem, listener: (Int) -> Unit) {
             itemView.city_name.text = item.city
             itemView.temperature.text = item.curTemp.toString()
+            itemView.temperature_measure.text = SettingsPresenter.instance.temperatureMeasureValue
             itemView.humidity_val.text = item.humidity.toString()
             itemView.wind_direction.text = item.windDir
             itemView.wind_speed.text = item.windSpeed.toString()
             itemView.day_night_temperature.text = "${item.dayTemp}/${item.nightTemp}"
+            itemView.day_night_temperature_measure.text =
+                SettingsPresenter.instance.temperatureMeasureValue
 
-            itemView.setOnClickListener{ listener(adapterPosition) }
+            itemView.setOnClickListener { listener(adapterPosition) }
         }
     }
 

@@ -1,17 +1,31 @@
 package com.example.weather
 
 import android.content.DialogInterface
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.preference.PreferenceManager
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_settings.*
+import java.util.*
 
 
 class SettingsActivity : AppCompatActivity() {
 
+    private lateinit var settings: SharedPreferences
+
+    private lateinit var windSpeedArray: Array<String>
+    private var tempArray = ArrayList<String>()
+
+    private var temperatureValue = 0
+    private var windSpeedValue = 0
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+
+        init()
 
         setBackBtnListener()
 
@@ -21,20 +35,36 @@ class SettingsActivity : AppCompatActivity() {
 
     }
 
+    private fun init() {
+        settings = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+
+        windSpeedArray = resources.getStringArray(R.array.wind_speed_measure)
+        for (item in TemperatureMeasureEnum.values()) {
+            tempArray.add(item.value)
+        }
+
+        val settingsInstance = SettingsPresenter.instance
+
+        temperatureValue = settingsInstance.temperatureMeasureIndex
+        windSpeedValue = settingsInstance.windSpeed
+
+        temperatureVal.text = tempArray[temperatureValue]
+        windSpeedVal.text = windSpeedArray[windSpeedValue]
+
+    }
+
     private fun setWindSpeedListener() {
         windSpeed.setOnClickListener {
-            val windSpeedArray = resources.getStringArray(R.array.wind_speed_measure)
-            val checkedItem = windSpeedArray.indexOf(windSpeedVal.text)
             val builder = MaterialAlertDialogBuilder(this)
                 .setTitle(resources.getString(R.string.wind_speed))
                 .setSingleChoiceItems(
                     R.array.wind_speed_measure,
-                    checkedItem,
+                    windSpeedValue,
                     object : DialogInterface.OnClickListener {
                         override fun onClick(dialog: DialogInterface?, which: Int) {
                             windSpeedVal.text = windSpeedArray[which]
 
-                            saveWindSpeed()
+                            saveWindSpeed(which)
                             dialog?.dismiss()
                         }
 
@@ -45,18 +75,16 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun setTemperatureListener() {
         temperature.setOnClickListener {
-            val tempArray = resources.getStringArray(R.array.temperature_measure)
-            val checkedItem = tempArray.indexOf(temperatureVal.text)
             val builder = MaterialAlertDialogBuilder(this)
                 .setTitle(resources.getString(R.string.temperature))
                 .setSingleChoiceItems(
                     R.array.temperature_measure,
-                    checkedItem,
+                    temperatureValue,
                     object : DialogInterface.OnClickListener {
                         override fun onClick(dialog: DialogInterface?, which: Int) {
                             temperatureVal.text = tempArray[which]
 
-                            saveTemperature()
+                            saveTemperature(which)
                             dialog?.dismiss()
                         }
                     })
@@ -71,21 +99,23 @@ class SettingsActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        temperatureVal.text = SettingsPresenter.instance.temperature
-        windSpeedVal.text = SettingsPresenter.instance.windSpeed
+        init()
     }
 
-    private fun saveTemperature() {
-        SettingsPresenter.instance.temperature = temperatureVal.text.toString()
+    private fun saveTemperature(index: Int) {
+        SettingsPresenter.instance.temperatureMeasureIndex = index
+        temperatureValue = index
+        val editor = settings.edit()
+        editor.putInt(SettingsPresenter.instance.APP_PREFERENCES_TEMPERATURE, index)
+        editor.apply()
     }
 
-    private fun saveWindSpeed() {
-        SettingsPresenter.instance.windSpeed = windSpeedVal.text.toString()
+    private fun saveWindSpeed(index: Int) {
+        SettingsPresenter.instance.windSpeed = index
+        windSpeedValue = index
+        val editor = settings.edit()
+        editor.putInt(SettingsPresenter.instance.APP_PREFERENCES_WIND_SPEED, index)
+        editor.apply()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        saveTemperature()
-        saveWindSpeed()
-    }
 }
