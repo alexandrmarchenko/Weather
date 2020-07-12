@@ -18,6 +18,9 @@
 
     <string name="humidity">Humidity</string>
 
+    <string name="connection_error">Connection error</string>
+    <string name="retry">Retry</string>
+
     <string-array name="wind_speed_measure">
         <item>Beaufort Scale</item>
         <item>Kilometers per hour</item>

@@ -18,6 +18,9 @@
 
     <string name="humidity">Влажность</string>
 
+    <string name="connection_error">Ошибка загрузки данных</string>
+    <string name="retry">Повторить</string>
+
     <string-array name="cities">
         <item>Москва</item>
         <item>Санкт-Петербург</item>
