@@ -11,8 +11,8 @@
     <style name="TableRowStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">3dp</item>
-        <item name="android:layout_marginBottom">3dp</item>
+        <item name="android:layout_marginTop">7dp</item>
+        <item name="android:layout_marginBottom">7dp</item>
     </style>
 
     <style name="DayTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -20,7 +20,7 @@
         <item name="android:textColor">@color/textColor</item>
         <item name="android:background">@color/colorDayTheme</item>
         <item name="android:popupMenuStyle">@style/PopupMenu</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="textAppearanceSmallPopupMenu">@style/myPopupMenuTextAppearanceSmall</item>
         <item name="textAppearanceLargePopupMenu">@style/myPopupMenuTextAppearanceLarge</item>
     </style>
@@ -29,7 +29,7 @@
         <!-- Customize your theme here. -->
         <item name="android:textColor">@color/textColor</item>
         <item name="android:background">@color/colorNightTheme</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:popupMenuStyle">@style/PopupMenu</item>
         <item name="textAppearanceSmallPopupMenu">@style/myPopupMenuTextAppearanceSmall</item>
         <item name="textAppearanceLargePopupMenu">@style/myPopupMenuTextAppearanceLarge</item>
