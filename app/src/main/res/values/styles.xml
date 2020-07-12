@@ -17,6 +17,7 @@
 
     <style name="DayTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <item name="snackbarStyle">@style/Widget.App.Snackbar</item>
         <item name="android:textColor">@color/textColor</item>
         <item name="android:background">@color/colorDayTheme</item>
         <item name="android:popupMenuStyle">@style/PopupMenu</item>
@@ -27,6 +28,7 @@
 
     <style name="NightTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
+        <item name="snackbarStyle">@style/Widget.App.Snackbar</item>
         <item name="android:textColor">@color/textColor</item>
         <item name="android:background">@color/colorNightTheme</item>
         <item name="android:textSize">15sp</item>
@@ -123,5 +125,12 @@
         <item name="android:textColor">@color/cityItemListSecondColor</item>
         <item name="android:textSize">@dimen/search_city_list_item_country_text_size</item>
     </style>
+
+    <style name="Widget.App.Snackbar" parent="Widget.MaterialComponents.Snackbar">
+        <item name="backgroundColor">@color/white</item>
+<!--        <item name="actionTextColorAlpha">1</item>-->
+<!--        <item name="backgroundColor">@color/white</item>-->
+    </style>
+
 
 </resources>
