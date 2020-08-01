@@ -71,6 +71,16 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/currTemp" />
 
+    <com.example.weather.temperatureView.TemperatureView
+        android:layout_marginLeft="30dp"
+        android:layout_width="80dp"
+        android:layout_height="150dp"
+        android:id="@+id/thermometer"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currTemp"
+        app:temperature="25"
+        />
+
     <TextView
         android:id="@+id/details"
         android:layout_width="wrap_content"

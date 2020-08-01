@@ -1,6 +1,11 @@
 package com.example.weather
 
+import android.content.Context
 import android.content.Intent
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,7 +23,10 @@ import kotlin.math.roundToInt
 /**
  * A simple [Fragment] subclass.
  */
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), SensorEventListener {
+
+    private lateinit var sensorManager: SensorManager
+    private var sensorTemp: Sensor? = null
 
     companion object {
         const val CITY_KEY = "CITY"
@@ -62,8 +70,10 @@ class MainFragment : Fragment() {
     }
 
     private fun init() {
-        var data = getDataWeather()
+        sensorManager = requireContext().getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        sensorTemp = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE)
 
+        var data = getDataWeather()
         val settings = SettingsPresenter.instance
 
         city.text = data.city?.localizedName
@@ -155,6 +165,25 @@ class MainFragment : Fragment() {
         ft.addToBackStack("");
         ft.commit()
 
+    }
+
+    override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
+
+    }
+
+    override fun onSensorChanged(p0: SensorEvent?) {
+        val temp = p0?.values
+        thermometer.temperature = temp?.get(0) ?: 0f
+    }
+
+    override fun onPause() {
+        super.onPause()
+        sensorManager.unregisterListener(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        sensorTemp?.also { sensor -> sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL) }
     }
 
 }
