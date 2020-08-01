@@ -10,8 +10,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.example.weather.cityWeatherForecast.CityWeatherForecastData
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
+import kotlin.math.roundToInt
 
 /**
  * A simple [Fragment] subclass.
@@ -21,7 +23,7 @@ class MainFragment : Fragment() {
     companion object {
         const val CITY_KEY = "CITY"
 
-        fun create(data: WeatherData): MainFragment {
+        fun create(data: CityWeatherForecastData): MainFragment {
             var mainFragment = MainFragment()
 
             var args = Bundle()
@@ -32,12 +34,11 @@ class MainFragment : Fragment() {
         }
     }
 
-    fun getDataWeather(): WeatherData {
-        return arguments?.getSerializable("weatherData") as WeatherData
+    private var link: String = "http://m.accuweather.com/"
+
+    private fun getDataWeather(): CityWeatherForecastData {
+        return arguments?.getSerializable("weatherData") as CityWeatherForecastData
     }
-
-    private val REQUEST_GET_DATA_TYPE = 1
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,11 +51,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var data = getDataWeather()
-
-        city.text = data.city
-        currTemp.text = data.curTemp.toString()
-
+        init()
 
         setCityManagementBtnListener()
 
@@ -62,6 +59,43 @@ class MainFragment : Fragment() {
 
         setDetailBtnListener()
 
+    }
+
+    private fun init() {
+        var data = getDataWeather()
+
+        val settings = SettingsPresenter.instance
+
+        city.text = data.city?.localizedName
+        if (settings.temperature_metric) {
+            currTemp.text =
+                data.currentConditions?.temperature?.metric?.value?.roundToInt().toString()
+        } else {
+            currTemp.text =
+                data.currentConditions?.temperature?.imperial?.value?.roundToInt().toString()
+        }
+        currTempMeasure.text = settings.temperatureMeasureValue
+
+        val today = data.weatherForecast?.dailyForecasts?.get(0)
+
+        todayWeatherTxt.text = today?.day?.shortPhrase
+        todayTemp.text =
+            "${today?.temperature?.maximum?.value?.roundToInt()} / ${today?.temperature?.minimum?.value?.roundToInt()}"
+        todayTempMeasure.text = settings.temperatureMeasureValue
+
+        val tomorrow = data.weatherForecast?.dailyForecasts?.get(1)
+        tomorrowWeatherTxt.text = tomorrow?.day?.shortPhrase
+        tomorrowTemp.text =
+            "${tomorrow?.temperature?.maximum?.value?.roundToInt()} / ${tomorrow?.temperature?.minimum?.value?.roundToInt()}"
+        tomorrowTempMeasure.text = settings.temperatureMeasureValue
+
+        val dayAfterTom = data.weatherForecast?.dailyForecasts?.get(2)
+        dayAfterTomWeatherTxt.text = dayAfterTom?.day?.shortPhrase
+        dayAfterTomTemp.text =
+            "${dayAfterTom?.temperature?.maximum?.value?.roundToInt()} / ${dayAfterTom?.temperature?.minimum?.value?.roundToInt()}"
+        dayAfterTomTempMeasure.text = settings.temperatureMeasureValue
+
+        link = today?.mobileLink ?: link
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

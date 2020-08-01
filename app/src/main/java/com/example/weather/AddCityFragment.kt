@@ -1,15 +1,17 @@
 package com.example.weather
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.weather.cityWeatherForecast.cityData.CityData
 import kotlinx.android.synthetic.main.fragment_add_city.*
 
 /**
@@ -17,7 +19,6 @@ import kotlinx.android.synthetic.main.fragment_add_city.*
  */
 class AddCityFragment : Fragment() {
 
-    private lateinit var cities: Array<String>
     private lateinit var searchCityListAdapter: SearchCityListAdapter
 
     override fun onCreateView(
@@ -31,8 +32,6 @@ class AddCityFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        cities = resources.getStringArray(R.array.cities)
-
         setBackBtnListener()
 
         setEnterCityTextEditListener()
@@ -43,7 +42,7 @@ class AddCityFragment : Fragment() {
     private fun fillCityList() {
 
 
-        val listener = { city: String -> addCity(city) }
+        val listener = { city: CityData -> addCity(city) }
 
         searchCityListAdapter = SearchCityListAdapter(listener)
 
@@ -55,14 +54,18 @@ class AddCityFragment : Fragment() {
         cityList.addItemDecoration(itemDecoration);
 
 
-
-        searchCityListAdapter.dataList = getCityList(cities)
+        //  searchCityListAdapter.dataList = getCityList(cities)
 
     }
 
-    private fun addCity(city: String) {
+    private fun addCity(city: CityData) {
 
-        MainActivity.addCityData(city)
+        //val locale = resources.configuration.locale.toLanguageTag()
+        val locale = SettingsPresenter.instance.locale
+
+        val data = DataLoader.load(city, locale, SettingsPresenter.instance.temperature_metric)
+        if (data != null)
+            WeatherData.instance.add(data)
 
         var userCityListFragment = UserCityListFragment()
 
@@ -82,32 +85,35 @@ class AddCityFragment : Fragment() {
 
     private fun setEnterCityTextEditListener() {
 
-        enter_city.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                val cList = cities.filter { city ->
-                    city.toUpperCase().contains(s.toString().toUpperCase())
+        enter_city.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+            override fun onEditorAction(p0: TextView?, p1: Int, p2: KeyEvent?): Boolean {
+                if (p1 == EditorInfo.IME_ACTION_SEARCH) {
+                    val text = enter_city.text.toString()
+                    if (!text.isNullOrBlank()) {
+                        fillCityList(text)
+                    }
+                    return true;
                 }
-                searchCityListAdapter.dataList = getCityList(cList.toTypedArray())
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                return false;
             }
         })
+
     }
 
-    private fun getCityList(cities: Array<String>): ArrayList<CityData> {
+    private fun fillCityList(text: String) {
 
-        val cityList = ArrayList<CityData>()
-        val country = "Россия"
-        val adminArea = "adminArea"
-        for (city in cities) {
+        //    val locale = resources.configuration.locale.toLanguageTag()
+//        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//
+//        val ims = imm.currentInputMethodSubtype
+//
+//        val locale = ims.locale
 
-            cityList.add(CityData(city, country, adminArea))
-        }
+        //Тут надо получать язык клавиатуры
+        val locale = SettingsPresenter.instance.locale
 
-        return cityList
+
+        val data = DataLoader.loadCityData(text, locale)
+        searchCityListAdapter.dataList = data
     }
 }
