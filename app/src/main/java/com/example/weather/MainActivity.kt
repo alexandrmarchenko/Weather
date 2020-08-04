@@ -1,10 +1,15 @@
 package com.example.weather
 
+import android.content.ComponentName
+import android.content.Intent
+import android.content.ServiceConnection
 import android.os.Bundle
+import android.os.IBinder
 import android.preference.PreferenceManager
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.weather.cityWeatherForecast.CityWeatherForecastData
+import com.example.weather.service.WeatherService
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
@@ -18,6 +23,9 @@ class MainActivity : AppCompatActivity() {
 
     private val TAG = "WEATHER"
     private val FILE_NAME = "date.txt"
+
+    private var isBound = false
+    var boundService: WeatherService.ServiceBinder? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +47,11 @@ class MainActivity : AppCompatActivity() {
         cityDataInit()
 
         callFragment()
+    }
+
+    fun initService() {
+        val intent = Intent(this@MainActivity, WeatherService::class.java)
+        bindService(intent, boundServiceConnection, BIND_AUTO_CREATE)
     }
 
     private fun callFragment() {
@@ -151,5 +164,24 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+    fun unbindService(){
+        unbindService(boundServiceConnection)
+    }
+
+    private val boundServiceConnection: ServiceConnection = object : ServiceConnection {
+        // При соединении с сервисом
+        override fun onServiceConnected(name: ComponentName, service: IBinder) {
+            boundService = service as WeatherService.ServiceBinder
+            isBound = boundService != null
+        }
+
+        // При разрыве соединения с сервисом
+        override fun onServiceDisconnected(name: ComponentName) {
+            isBound = false
+            boundService = null
+        }
+    }
+
 
 }

@@ -1,5 +1,6 @@
 package com.example.weather
 
+import android.content.Context
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -58,12 +59,22 @@ class AddCityFragment : Fragment() {
 
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (context as MainActivity).initService()
+    }
+
     private fun addCity(city: CityData) {
 
         //val locale = resources.configuration.locale.toLanguageTag()
         val locale = SettingsPresenter.instance.locale
 
-        val data = DataLoader.load(city, locale, SettingsPresenter.instance.temperature_metric)
+//        val data = DataLoader.load(city, locale, SettingsPresenter.instance.temperature_metric)
+        val data = (activity as MainActivity).boundService?.loadWeatherData(
+            city,
+            locale,
+            SettingsPresenter.instance.temperature_metric
+        )
         if (data != null)
             WeatherData.instance.add(data)
 
@@ -81,6 +92,11 @@ class AddCityFragment : Fragment() {
         topAppBar.setNavigationOnClickListener {
             fragmentManager?.popBackStack()
         }
+    }
+
+    override fun onStop() {
+        (activity as MainActivity).unbindService()
+        super.onStop()
     }
 
     private fun setEnterCityTextEditListener() {
@@ -113,7 +129,8 @@ class AddCityFragment : Fragment() {
         val locale = SettingsPresenter.instance.locale
 
 
-        val data = DataLoader.loadCityData(text, locale)
-        searchCityListAdapter.dataList = data
+        //val data = DataLoader.loadCityData(text, locale)
+        val data = (activity as MainActivity).boundService?.loadCityData(text, locale)
+        searchCityListAdapter.dataList = data ?: ArrayList()
     }
 }
