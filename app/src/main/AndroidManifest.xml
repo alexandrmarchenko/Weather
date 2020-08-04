@@ -12,8 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/NightTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SettingsActivity"
-            android:theme="@style/SettingsStyle"/>
+        <service
+            android:name="com.example.weather.service.WeatherService"
+            android:enabled="true"
+            android:exported="false"></service>
+
+        <activity
+            android:name=".SettingsActivity"
+            android:theme="@style/SettingsStyle" />
         <activity
             android:name=".CityManagement"
             android:theme="@style/SettingsStyle" />
