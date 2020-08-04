@@ -103,7 +103,7 @@ class AddCityFragment : Fragment() {
     private fun fillCityList(text: String) {
 
         //    val locale = resources.configuration.locale.toLanguageTag()
-//        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 //
 //        val ims = imm.currentInputMethodSubtype
 //
