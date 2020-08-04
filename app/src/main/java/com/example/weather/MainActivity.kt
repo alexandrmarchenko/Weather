@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadDefaultCItyData(defaultCityKey: Int, locale: String) {
-        var data = //boundService?.loadWeatherData(defaultCityKey, locale, SettingsPresenter.instance.temperature_metric)
+        var data =  //boundService?.loadWeatherData(defaultCityKey, locale, SettingsPresenter.instance.temperature_metric)
             DataLoader.load(defaultCityKey, locale, SettingsPresenter.instance.temperature_metric)
         if (data != null)
             WeatherData.instance.add(data)
