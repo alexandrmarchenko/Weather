@@ -9,4 +9,13 @@ class CityWeatherForecastData(
     val city: CityData?,
     var currentConditions: CurrentConditionsData?,
     var weatherForecast: ForecastData?
-) : Serializable
+) : Serializable {
+    override fun equals(other: Any?): Boolean {
+        if (other is CityWeatherForecastData) {
+            if (other.city?.Key == this.city?.Key) {
+                return true
+            }
+        }
+        return false
+    }
+}
