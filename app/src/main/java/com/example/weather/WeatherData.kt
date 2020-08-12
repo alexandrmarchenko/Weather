@@ -19,7 +19,9 @@ class WeatherData : Serializable {
     }
 
     fun add(item: CityWeatherForecastData) {
-        items.add(item)
+        if (!items.contains(item)) {
+            items.add(item)
+        }
     }
 
 }
