@@ -21,6 +21,10 @@
     <string name="connection_error">Connection error</string>
     <string name="retry">Retry</string>
 
+    <string name="warning">Warning</string>
+    <string name="low_battery">Low battery</string>
+    <string name="network_off">Network off</string>
+
     <string-array name="wind_speed_measure">
         <item>Beaufort Scale</item>
         <item>Kilometers per hour</item>

@@ -30,7 +30,7 @@
         android:background="@drawable/back"/>
 
     <EditText
-        android:id="@+id/enter_city"
+        android:id="@+id/enterCity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -47,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/enter_city"
+        app:layout_constraintTop_toBottomOf="@+id/enterCity"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="30dp"/>
 

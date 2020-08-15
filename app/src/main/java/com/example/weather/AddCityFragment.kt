@@ -27,9 +27,9 @@ class AddCityFragment : Fragment() {
 
     private lateinit var searchCityListAdapter: SearchCityListAdapter
 
-    private lateinit var autoComplete: List<String>
+    private var autoComplete: List<String> = ArrayList()
 
-    private var weatherDb: WeatherDao? = null
+    private var weatherDb: WeatherDao? = App.getInstance()?.getWeatherDao()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,13 +48,7 @@ class AddCityFragment : Fragment() {
 
         fillCityList()
 
-        initDb()
-
         initAutoComplete()
-    }
-
-    private fun initDb() {
-        weatherDb = App.getInstance()?.getWeatherDao()
     }
 
     private fun initAutoComplete() {
@@ -63,8 +57,8 @@ class AddCityFragment : Fragment() {
         val adapter = ArrayAdapter<String>(
             requireContext(), android.R.layout.simple_dropdown_item_1line, autoComplete
         )
-        enter_city.setAdapter(adapter)
-        enter_city.threshold = 2
+        enterCity.setAdapter(adapter)
+        enterCity.threshold = 2
     }
 
     private fun addCitySearchHist(text: String) {
@@ -119,10 +113,10 @@ class AddCityFragment : Fragment() {
 
     private fun setEnterCityTextEditListener() {
 
-        enter_city.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+        enterCity.setOnEditorActionListener(object : TextView.OnEditorActionListener {
             override fun onEditorAction(p0: TextView?, p1: Int, p2: KeyEvent?): Boolean {
                 if (p1 == EditorInfo.IME_ACTION_SEARCH) {
-                    val text = enter_city.text.toString()
+                    val text = enterCity.text.toString()
                     if (!text.isNullOrBlank()) {
                         fillCityList(text)
                         addCitySearchHist(text)

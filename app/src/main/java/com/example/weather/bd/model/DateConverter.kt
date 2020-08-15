@@ -14,7 +14,7 @@ class DateConverter {
         @TypeConverter
         @JvmStatic
         fun  dateToTimestamp(date: Date): Long {
-            return date?.time;
+            return date.time;
         }
     }
 }
