@@ -37,7 +37,7 @@ class CityManagement : AppCompatActivity() {
     }
 
     private fun setEnterCityTextEditListener() {
-        enter_city.addTextChangedListener(object : TextWatcher {
+        enterCity.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 val cList = cities.filter { city ->
                     city.toUpperCase().contains(s.toString().toUpperCase())
