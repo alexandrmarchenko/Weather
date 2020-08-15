@@ -6,13 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.weather.bd.App
+import com.example.weather.bd.dao.WeatherDao
+import com.example.weather.bd.model.CitySearchHist
 import com.example.weather.cityWeatherForecast.cityData.CityData
 import kotlinx.android.synthetic.main.fragment_add_city.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * A simple [Fragment] subclass.
@@ -20,6 +26,10 @@ import kotlinx.android.synthetic.main.fragment_add_city.*
 class AddCityFragment : Fragment() {
 
     private lateinit var searchCityListAdapter: SearchCityListAdapter
+
+    private lateinit var autoComplete: List<String>
+
+    private var weatherDb: WeatherDao? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +47,30 @@ class AddCityFragment : Fragment() {
         setEnterCityTextEditListener()
 
         fillCityList()
+
+        initDb()
+
+        initAutoComplete()
+    }
+
+    private fun initDb() {
+        weatherDb = App.getInstance()?.getWeatherDao()
+    }
+
+    private fun initAutoComplete() {
+        autoComplete = weatherDb?.selectCityOrderDesc() ?: ArrayList()
+
+        val adapter = ArrayAdapter<String>(
+            requireContext(), android.R.layout.simple_dropdown_item_1line, autoComplete
+        )
+        enter_city.setAdapter(adapter)
+        enter_city.threshold = 2
+    }
+
+    private fun addCitySearchHist(text: String) {
+        val calender = Calendar.getInstance()
+        val hist = CitySearchHist(text, calender.time)
+        weatherDb?.insertCitySearch(hist)
     }
 
     private fun fillCityList() {
@@ -91,6 +125,7 @@ class AddCityFragment : Fragment() {
                     val text = enter_city.text.toString()
                     if (!text.isNullOrBlank()) {
                         fillCityList(text)
+                        addCitySearchHist(text)
                     }
                     return true;
                 }
