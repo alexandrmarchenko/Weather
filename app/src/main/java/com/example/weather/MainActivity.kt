@@ -1,5 +1,11 @@
 package com.example.weather
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.Log
@@ -18,6 +24,8 @@ class MainActivity : AppCompatActivity() {
 
     private val TAG = "WEATHER"
     private val FILE_NAME = "date.txt"
+    private val networkReceiver = NetworkReceiver()
+    private val batteryReceiver = BatteryReceiver()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +36,8 @@ class MainActivity : AppCompatActivity() {
 
             init()
 
-
+            initNotificationChannel()
+            initReceivers()
         }
     }
 
@@ -40,6 +49,28 @@ class MainActivity : AppCompatActivity() {
 
         callFragment()
     }
+
+    private fun initReceivers() {
+        registerReceiver(batteryReceiver, IntentFilter(Intent.ACTION_BATTERY_LOW))
+        registerReceiver(networkReceiver, IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"))
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(batteryReceiver)
+        unregisterReceiver(networkReceiver)
+    }
+
+    private fun initNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val notificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val importance = NotificationManager.IMPORTANCE_LOW
+            val channel = NotificationChannel("2", "name", importance)
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
 
     private fun callFragment() {
         if (WeatherData.instance.items.count() != 0) {
