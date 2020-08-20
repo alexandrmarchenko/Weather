@@ -99,6 +99,18 @@ class AddCityFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(p0: GoogleMap?) {
         googleMap = p0
+
+        initMapListeners()
+
+        val position = Geo.getInstance(requireContext()).currentPosition
+        if (position != null) {
+            googleMap?.addMarker(MarkerOptions().position(position).title("Current position"))
+            googleMap?.moveCamera(CameraUpdateFactory.newLatLng(position))
+        }
+        mapView.onResume()
+    }
+
+    private fun initMapListeners() {
         googleMap?.setOnMapLongClickListener(OnMapLongClickListener { latLng ->
             geoModel.getAdress(requireContext(), latLng)
         })
@@ -111,13 +123,6 @@ class AddCityFragment : Fragment(), OnMapReadyCallback {
                 return false
             }
         })
-
-        val position = Geo.getInstance(requireContext()).currentPosition
-        if (position != null) {
-            googleMap?.addMarker(MarkerOptions().position(position).title("Current position"))
-            googleMap?.moveCamera(CameraUpdateFactory.newLatLng(position))
-        }
-        mapView.onResume()
     }
 
     private fun initAutoComplete() {
