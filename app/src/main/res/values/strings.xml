@@ -23,7 +23,6 @@
     <string name="warning">Предупреждение</string>
     <string name="low_battery">Низкий заряд батареи</string>
     <string name="network_off">Отсутствует подключение к сети</string>
-    <string name="a">aaa</string>
 
     <string-array name="cities">
         <item>Москва</item>
