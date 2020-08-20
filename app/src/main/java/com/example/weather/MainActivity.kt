@@ -5,12 +5,14 @@ import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.weather.cityWeatherForecast.CityWeatherForecastData
+import com.example.weather.geo.Geo
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
@@ -48,6 +50,20 @@ class MainActivity : AppCompatActivity() {
         cityDataInit()
 
         callFragment()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == Geo.PERMISSION_REQUEST_CODE) {
+            if (grantResults.size == 2 &&
+                (grantResults[0] == PackageManager.PERMISSION_GRANTED || grantResults[1] == PackageManager.PERMISSION_GRANTED)
+            ) {
+                Geo.getInstance(this).requestLocation()
+            }
+        }
     }
 
     private fun initReceivers() {
@@ -104,7 +120,15 @@ class MainActivity : AppCompatActivity() {
 
         //Грузим город по-умолчанию -- потом получать по GPS город
         if (WeatherData.instance.items.count() == 0) {
-            loadDefaultCItyData(defaultCityKey, locale)
+            val pos = Geo.getInstance(this).currentPosition
+            if (pos != null) {
+                val data =
+                    DataLoader.load(pos, locale, SettingsPresenter.instance.temperature_metric)
+                if (data != null)
+                    WeatherData.instance.add(data)
+            } else {
+                loadDefaultCItyData(defaultCityKey, locale)
+            }
         }
     }
 

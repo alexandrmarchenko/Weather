@@ -16,6 +16,16 @@ import com.example.weather.bd.App
 import com.example.weather.bd.dao.WeatherDao
 import com.example.weather.bd.model.CitySearchHist
 import com.example.weather.cityWeatherForecast.cityData.CityData
+import com.example.weather.geo.Geo
+import com.example.weather.geo.GeoModel
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener
+import com.google.android.gms.maps.MapsInitializer
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.fragment_add_city.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -23,7 +33,11 @@ import kotlin.collections.ArrayList
 /**
  * A simple [Fragment] subclass.
  */
-class AddCityFragment : Fragment() {
+class AddCityFragment : Fragment(), OnMapReadyCallback {
+
+    private var googleMap: GoogleMap? = null
+    private var mapsSupported = true
+    private val geoModel: GeoModel = GeoModel()
 
     private lateinit var searchCityListAdapter: SearchCityListAdapter
 
@@ -49,6 +63,66 @@ class AddCityFragment : Fragment() {
         fillCityList()
 
         initAutoComplete()
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        try {
+            MapsInitializer.initialize(activity)
+        } catch (ex: GooglePlayServicesNotAvailableException) {
+            mapsSupported = false;
+        }
+
+        if (mapView != null) {
+            mapView.onCreate(savedInstanceState);
+        }
+        initializeMap();
+
+        initAddressObserver()
+
+    }
+
+    private fun initAddressObserver() {
+        geoModel.getAdressData().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            it?.let {
+                enterCity.setText(it?.locality)
+                enterCity.onEditorAction(EditorInfo.IME_ACTION_SEARCH)
+            }
+        })
+    }
+
+    private fun initializeMap() {
+        if (googleMap == null && mapsSupported) {
+            mapView.getMapAsync(this)
+        }
+    }
+
+    override fun onMapReady(p0: GoogleMap?) {
+        googleMap = p0
+
+        initMapListeners()
+
+        val position = Geo.getInstance(requireContext()).currentPosition
+        if (position != null) {
+            googleMap?.addMarker(MarkerOptions().position(position).title("Current position"))
+            googleMap?.moveCamera(CameraUpdateFactory.newLatLng(position))
+        }
+        mapView.onResume()
+    }
+
+    private fun initMapListeners() {
+        googleMap?.setOnMapLongClickListener(OnMapLongClickListener { latLng ->
+            geoModel.getAdress(requireContext(), latLng)
+        })
+        googleMap?.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
+            override fun onMarkerClick(p0: Marker?): Boolean {
+                p0?.position?.let { position ->
+                    geoModel.getAdress(requireContext(), position)
+                    return true
+                }
+                return false
+            }
+        })
     }
 
     private fun initAutoComplete() {
@@ -144,5 +218,20 @@ class AddCityFragment : Fragment() {
 
         val data = DataLoader.loadCityData(text, locale)
         searchCityListAdapter.dataList = data
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mapView.onResume()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mapView.onDestroy()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        mapView.onDestroy()
     }
 }
