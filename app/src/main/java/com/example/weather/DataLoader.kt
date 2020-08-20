@@ -6,6 +6,7 @@ import com.example.weather.cityWeatherForecast.CityWeatherForecastData
 import com.example.weather.cityWeatherForecast.cityData.CityData
 import com.example.weather.cityWeatherForecast.currentConditions.CurrentConditionsData
 import com.example.weather.cityWeatherForecast.forecastData.ForecastData
+import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.BufferedReader
@@ -71,6 +72,50 @@ class DataLoader() {
             val mHandler = Handler()
             var uri = URL(
                 "$BASE_URL/locations/v1/$key?apikey=" + BuildConfig.WEATHER_API_KEY
+                        + "&language=$locale&details=false"
+            )
+            var cityRequest: CityData? = null
+            try {
+                val thread = Thread(Runnable {
+                    var urlConnection: HttpURLConnection? = null
+                    try {
+                        urlConnection = uri.openConnection() as HttpURLConnection
+                        urlConnection?.requestMethod = "GET"
+                        urlConnection?.readTimeout = 10000
+
+                        var text =
+                            urlConnection?.inputStream?.bufferedReader()
+                                ?.use(BufferedReader::readText)
+
+                        var gson = Gson()
+
+                        cityRequest = gson.fromJson(text, CityData::class.java)
+
+                    } catch (e: Exception) {
+                        Log.e(TAG, "Fail connection", e);
+                        e.printStackTrace();
+                        mHandler.post {
+                            throw e
+                        }
+                    } finally {
+                        urlConnection?.disconnect()
+                    }
+                })
+                thread.start()
+                thread.join()
+            } catch (e: Exception) {
+                Log.e(TAG, "Fail connection", e);
+                e.printStackTrace();
+                throw e
+            }
+
+            return cityRequest
+        }
+
+        private fun loadCityData(geo: LatLng, locale: String): CityData? {
+            val mHandler = Handler()
+            var uri = URL(
+                "$BASE_URL/locations/v1/cities/geoposition/search/?apikey=" + BuildConfig.WEATHER_API_KEY + "q=$geo.latitude,${geo.longitude}"
                         + "&language=$locale&details=false"
             )
             var cityRequest: CityData? = null
@@ -273,6 +318,34 @@ class DataLoader() {
                     currentCondition,
                     weatherForecast
                 )
+            } catch (e: Exception) {
+                Log.e(TAG, "Fail connection", e);
+                e.printStackTrace();
+            }
+            return null
+        }
+
+        fun load(geo: LatLng, locale: String, metric: Boolean): CityWeatherForecastData? {
+
+            try {
+                var cityData: CityData?
+                var currentCondition: CurrentConditionsData?
+                var weatherForecast: ForecastData?
+
+                cityData = loadCityData(geo, locale)
+                if (cityData?.Key != null) {
+                    currentCondition = loadCurrentCondition(cityData?.Key, locale)
+                    weatherForecast = loadForecast(cityData?.Key, locale, metric)
+                    if (cityData != null || currentCondition != null || weatherForecast != null) {
+                        return CityWeatherForecastData(
+                                cityData,
+                        currentCondition,
+                        weatherForecast
+                        )
+                    }
+
+                }
+                return null
             } catch (e: Exception) {
                 Log.e(TAG, "Fail connection", e);
                 e.printStackTrace();
