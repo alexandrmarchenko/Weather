@@ -32,6 +32,20 @@ android {
         }
     }
 
+    flavorDimensions 'version'
+    productFlavors {
+        geoConfig {
+            dimension 'version'
+            applicationIdSuffix '.geo'
+            versionNameSuffix '.geo'
+        }
+        noGeoConfig {
+            dimension 'version'
+            applicationIdSuffix '.nogeo'
+            versionNameSuffix '.nogeo'
+        }
+    }
+
 }
 
 dependencies {
@@ -51,4 +65,13 @@ dependencies {
 
     implementation "android.arch.persistence.room:runtime:1.1.1"
     kapt "android.arch.persistence.room:compiler:1.1.1"
+
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.6.2"
+    implementation "com.squareup.retrofit2:converter-gson:2.6.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:3.12.1"
+
+    //Lifecycle and ViewModel
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0'
 }
