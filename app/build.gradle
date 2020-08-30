@@ -32,6 +32,20 @@ android {
         }
     }
 
+    flavorDimensions 'version'
+    productFlavors {
+        geoConfig {
+            dimension 'version'
+            applicationIdSuffix '.geo'
+            versionNameSuffix '.geo'
+        }
+        noGeoConfig {
+            dimension 'version'
+            applicationIdSuffix '.nogeo'
+            versionNameSuffix '.nogeo'
+        }
+    }
+
 }
 
 dependencies {
