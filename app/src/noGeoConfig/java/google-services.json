@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "567663706523",
+    "firebase_url": "https://avid-sunset-286918.firebaseio.com",
+    "project_id": "avid-sunset-286918",
+    "storage_bucket": "avid-sunset-286918.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:567663706523:android:0ff1b8fbfb8b46ce43e13e",
+        "android_client_info": {
+          "package_name": "com.example.weather.nogeo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "567663706523-frne930udb6sukeg5e9u8acdrf0b734k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDI_D8qGwvTHXm-mY82KPcyre-iXzqu_eM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "567663706523-frne930udb6sukeg5e9u8acdrf0b734k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:567663706523:android:67c46b90e1781f2543e13e",
+        "android_client_info": {
+          "package_name": "com.example.weather.nogeo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "567663706523-frne930udb6sukeg5e9u8acdrf0b734k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDI_D8qGwvTHXm-mY82KPcyre-iXzqu_eM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "567663706523-frne930udb6sukeg5e9u8acdrf0b734k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
