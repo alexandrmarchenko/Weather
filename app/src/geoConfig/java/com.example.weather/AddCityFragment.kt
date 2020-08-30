@@ -26,7 +26,7 @@ import com.google.android.gms.maps.MapsInitializer
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import kotlinx.android.synthetic.main.fragment_add_city.*
+import kotlinx.android.synthetic.geoConfig.fragment_add_city.*
 import java.util.*
 import kotlin.collections.ArrayList
 
