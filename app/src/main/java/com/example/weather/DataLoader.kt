@@ -114,8 +114,9 @@ class DataLoader() {
 
         private fun loadCityData(geo: LatLng, locale: String): CityData? {
             val mHandler = Handler()
+            val param = URLEncoder.encode("${geo.latitude},${geo.longitude}", "utf-8")
             var uri = URL(
-                "$BASE_URL/locations/v1/cities/geoposition/search/?apikey=" + BuildConfig.WEATHER_API_KEY + "q=$geo.latitude,${geo.longitude}"
+                "$BASE_URL/locations/v1/cities/geoposition/search/?apikey=" + BuildConfig.WEATHER_API_KEY + "q=$param"
                         + "&language=$locale&details=false"
             )
             var cityRequest: CityData? = null
